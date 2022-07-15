@@ -19,7 +19,6 @@ class LatihanSeeder extends Seeder
     }
     public function run()
     {
-        //
-        Latihan::factory()->count(3)->create();
+        Latihan::factory()->count(15)->create();
     }
 }

@@ -3,10 +3,8 @@ import { Link } from '@inertiajs/inertia-react';
 import React from 'react';
 
 
-const Data = ({mahsiswa}) => {
-
-    
-    return mahsiswa.map((data, i) => 
+const Data = ({mahasiswa}) => {
+    return mahasiswa.map((data, i) => 
         <tbody key={i}>
             <tr>
                 <th>{++i}</th>
@@ -14,7 +12,7 @@ const Data = ({mahsiswa}) => {
                 <td>{data.jurusan}</td>
                 <td>
                     <button type='button' onClick={() => Inertia.delete('/delete/' + data.id)} className="btn btn-error">Delete</button>
-                    <button type='button' onClick={() => Inertia.get('edit/' + data.id)} className="mx-2 btn btn-warning">Edit</button>
+                    <Link href={route('edit', {id: data.id})} className="mx-2 btn btn-warning">Edit</Link>
                 </td>
             </tr>
         </tbody>

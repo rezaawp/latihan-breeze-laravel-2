@@ -27,10 +27,12 @@ Route::get('/', function () {
 });
 Route::controller(LatihanController::class)->group(function(){
     Route::get('data-mahasiswa', 'index')->name('index');
+    Route::post('data-mahasiswa', 'dataMahasiswa')->name('index');
     Route::get('create', 'create')->name('create');
     Route::post('/add-data-mahasiswa', 'store');
     Route::delete('/delete/{id}', 'destroy')->name('destroy');
-    Route::get('edit/{id}', 'edit');
+    Route::get('edit/{id}', 'edit')->name('edit');
+    Route::put('/edit-data-mahasiswa', 'update')->name('update');
 });
 
 Route::get('/dashboard', function () {

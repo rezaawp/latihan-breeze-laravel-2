@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JSON\JSON;
 use App\Models\Latihan;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -13,9 +14,14 @@ class LatihanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function dataMahasiswa(Request $request)
+    {
+        $nama = $request->nama;
+        $jurusan = $request->jurusan;
+        return Inertia::render('Table', ['mahasiswa' => $this->getAllData(), 'nama' => $nama, 'jurusan' => $jurusan]);
+    }
     public function index()
     {
-        //
         $nama = request()->nama;
         $jurusan = request()->jurusan;
         return Inertia::render('Table' , ['mahasiswa' => $this->getAllData(), 'nama' => $nama, 'jurusan' => $jurusan]);
@@ -51,7 +57,7 @@ class LatihanController extends Controller
             'jurusan' => $request->jurusan
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Data anda berhasil di input');
     }
 
     /**
@@ -71,11 +77,13 @@ class LatihanController extends Controller
      * @param  \App\Models\Latihan  $latihan
      * @return \Illuminate\Http\Response
      */
+
     public function edit($id,Latihan $latihan)
     {
-        //
         $data = Latihan::find($id);
-        return Inertia::render('Table', ['mahasiswa' => $this->getAllData(), 'data' => $data]);
+        $json = new JSON();
+        $json->create(public_path(''), 'edit', $data);
+        return Inertia::render('Table', ['mahasiswa' => $this->getAllData(), 'nama' => $data->nama, 'jurusan' => $data->jurusan, 'id' => $data->id]);
     }
 
     /**
@@ -88,6 +96,13 @@ class LatihanController extends Controller
     public function update(Request $request, Latihan $latihan)
     {
         //
+        $data = $latihan::find($request->id);
+        $data->update([
+            'nama' => $request->nama,
+            'jurusan' => $request->jurusan
+        ]);
+
+        return redirect()->route('index');
     }
 
     /**
@@ -98,10 +113,9 @@ class LatihanController extends Controller
      */
     public function destroy($id ,Latihan $latihan, Request $request)
     {
-        //
         $data = Latihan::find($id);
         $data->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Data anda sudah berhasil di hapus');
     }
 }
