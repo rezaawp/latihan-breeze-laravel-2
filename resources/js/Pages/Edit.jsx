@@ -28,6 +28,7 @@ const Edit = ({nama, jurusan, Id}) => {
     function handleClick(e)
     {
         e.preventDefault()
+        console.log('values', values)
         Inertia.put('/edit-data-mahasiswa', values)
         values.nama = ""
         values.jurusan = ""
@@ -36,9 +37,9 @@ const Edit = ({nama, jurusan, Id}) => {
     return ( 
         <div className="p-5">
             <label htmlFor="">Nama : </label>
-            <input id='nama' type="text" placeholder={nama} className="input input-bordered input-error w-full max-w-xs" onChange={handleChange} value={values.nama} />  <br />
+            <input id='nama' type="text" placeholder={nama} className="input input-bordered input-error w-full max-w-xs" onChange={handleChange} />  <br />
             <label htmlFor="">Jurusan : </label>
-            <input id='jurusan' type="text" placeholder={jurusan} className="input input-bordered input-error w-full max-w-xs" onChange={handleChange} value={values.jurusan} /> <br />
+            <input id='jurusan' type="text" placeholder={jurusan} className="input input-bordered input-error w-full max-w-xs" onChange={handleChange} /> <br />
             <button className="btn btn-outline btn-success mt-2" onClick={handleClick}>Tambah</button>
             <button className="mx-3 btn btn-outline btn-warning mt-2" onClick={handleClick}>Update</button>
         </div>

@@ -116,6 +116,6 @@ class LatihanController extends Controller
         $data = Latihan::find($id);
         $data->delete();
 
-        return redirect()->back()->with('message', 'Data anda sudah berhasil di hapus');
+        return redirect()->route('index')->with('message', 'Data anda sudah berhasil di hapus');
     }
 }
